@@ -1,0 +1,2058 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="openproject" schema="public" type="PostgreSQL - 9.6.13">
+   <tables>
+      <table name="announcements" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('announcements_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="text" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="show_until" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="3" name="active" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="6" id="4" name="created_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="5" name="updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="announcements_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_announcements_on_show_until_and_active" unique="false">
+            <column ascending="true" name="show_until"/>
+            <column ascending="true" name="active"/>
+         </index>
+      </table>
+      <table name="ar_internal_metadata" numRows="1" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="key" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="value" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="2" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="3" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="key" sequenceNumberInPK="1"/>
+         <index name="ar_internal_metadata_pkey" unique="true">
+            <column ascending="true" name="key"/>
+         </index>
+      </table>
+      <table name="attachable_journals" numRows="22" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('attachable_journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="attachment_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="filename" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="attachable_journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_attachable_journals_on_attachment_id" unique="false">
+            <column ascending="true" name="attachment_id"/>
+         </index>
+         <index name="index_attachable_journals_on_journal_id" unique="false">
+            <column ascending="true" name="journal_id"/>
+         </index>
+      </table>
+      <table name="attachment_journals" numRows="14" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('attachment_journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="container_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="container_type" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="filename" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="5" name="disk_filename" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="filesize" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="7" name="content_type" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="8" name="digest" nullable="false" remarks="" size="40" type="varchar"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="9" name="downloads" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="10" name="author_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="11" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="attachment_journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_attachment_journals_on_journal_id" unique="false">
+            <column ascending="true" name="journal_id"/>
+         </index>
+      </table>
+      <table name="attachments" numRows="13" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('attachments_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="container_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="container_type" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="filename" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="disk_filename" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="filesize" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="6" name="content_type" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="7" name="digest" nullable="false" remarks="" size="40" type="varchar"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="8" name="downloads" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="9" name="author_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="10" name="created_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="description" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="12" name="file" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="fulltext" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="14" name="fulltext_tsv" nullable="true" remarks="" size="2147483647" type="tsvector"/>
+         <column autoUpdated="false" digits="0" id="15" name="file_tsv" nullable="true" remarks="" size="2147483647" type="tsvector"/>
+         <column autoUpdated="false" digits="6" id="16" name="updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="attachments_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_attachments_on_author_id" unique="false">
+            <column ascending="true" name="author_id"/>
+         </index>
+         <index name="index_attachments_on_container_id_and_container_type" unique="false">
+            <column ascending="true" name="container_id"/>
+            <column ascending="true" name="container_type"/>
+         </index>
+         <index name="index_attachments_on_created_at" unique="false">
+            <column ascending="true" name="created_at"/>
+         </index>
+         <index name="index_attachments_on_file_tsv" unique="false">
+            <column ascending="true" name="file_tsv"/>
+         </index>
+         <index name="index_attachments_on_fulltext_tsv" unique="false">
+            <column ascending="true" name="fulltext_tsv"/>
+         </index>
+      </table>
+      <table name="attribute_help_texts" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('attribute_help_texts_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="help_text" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="type" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="attribute_name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="4" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="5" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="attribute_help_texts_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="auth_sources" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('auth_sources_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="1" name="type" nullable="false" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="name" nullable="false" remarks="" size="60" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="host" nullable="true" remarks="" size="60" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="port" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="account" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="6" name="account_password" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="base_dn" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="attr_login" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="attr_firstname" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="attr_lastname" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="11" name="attr_mail" nullable="true" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="12" name="onthefly_register" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="13" name="attr_admin" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="14" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="15" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="16" name="tls_mode" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="auth_sources_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_auth_sources_on_id_and_type" unique="false">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="type"/>
+         </index>
+      </table>
+      <table name="categories" numRows="5" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('categories_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="name" nullable="false" remarks="" size="256" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="assigned_to_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="4" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="5" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="categories_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_categories_on_assigned_to_id" unique="false">
+            <column ascending="true" name="assigned_to_id"/>
+         </index>
+         <index name="issue_categories_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+      </table>
+      <table name="changes" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('changes_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="changeset_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="action" nullable="false" remarks="" size="1" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="path" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="from_path" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="from_revision" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="revision" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="branch" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="changes_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="changesets_changeset_id" unique="false">
+            <column ascending="true" name="changeset_id"/>
+         </index>
+      </table>
+      <table name="changeset_journals" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('changeset_journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="repository_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="revision" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="committer" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="5" name="committed_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="comments" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="commit_date" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="8" name="scmid" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="user_id" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="changeset_journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_changeset_journals_on_journal_id" unique="false">
+            <column ascending="true" name="journal_id"/>
+         </index>
+      </table>
+      <table name="changesets" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('changesets_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="repository_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="revision" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="committer" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="4" name="committed_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="comments" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="commit_date" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="7" name="scmid" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="user_id" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="changesets_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="changesets_repos_rev" unique="true">
+            <column ascending="true" name="repository_id"/>
+            <column ascending="true" name="revision"/>
+         </index>
+         <index name="changesets_repos_scmid" unique="false">
+            <column ascending="true" name="repository_id"/>
+            <column ascending="true" name="scmid"/>
+         </index>
+         <index name="index_changesets_on_committed_on" unique="false">
+            <column ascending="true" name="committed_on"/>
+         </index>
+         <index name="index_changesets_on_repository_id" unique="false">
+            <column ascending="true" name="repository_id"/>
+         </index>
+         <index name="index_changesets_on_repository_id_and_committed_on" unique="false">
+            <column ascending="true" name="repository_id"/>
+            <column ascending="true" name="committed_on"/>
+         </index>
+         <index name="index_changesets_on_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="changesets_work_packages" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="changeset_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="work_package_id" nullable="false" remarks="" size="10" type="int4"/>
+         <index name="changesets_work_packages_ids" unique="true">
+            <column ascending="true" name="changeset_id"/>
+            <column ascending="true" name="work_package_id"/>
+         </index>
+      </table>
+      <table name="colors" numRows="144" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('colors_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="hexcode" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="3" name="created_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="4" name="updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="colors_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="comments" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('comments_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="1" name="commented_type" nullable="false" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="commented_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="author_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="comments" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="5" name="created_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="updated_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="comments_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_comments_on_author_id" unique="false">
+            <column ascending="true" name="author_id"/>
+         </index>
+         <index name="index_comments_on_commented_id_and_commented_type" unique="false">
+            <column ascending="true" name="commented_id"/>
+            <column ascending="true" name="commented_type"/>
+         </index>
+      </table>
+      <table name="cost_entries" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('cost_entries_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="user_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="work_package_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="cost_type_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="5" name="units" nullable="false" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="6" name="spent_on" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="7" name="created_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="updated_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="9" name="comments" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="10" name="blocked" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="4" id="11" name="overridden_costs" nullable="true" remarks="" size="15" type="numeric"/>
+         <column autoUpdated="false" digits="4" id="12" name="costs" nullable="true" remarks="" size="15" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="13" name="rate_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="14" name="tyear" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="15" name="tmonth" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="16" name="tweek" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="cost_entries_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="cost_object_journals" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('cost_object_journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="author_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="subject" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="fixed_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="7" name="created_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="cost_object_journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="cost_objects" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('cost_objects_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="author_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="subject" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="description" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="type" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="fixed_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="7" name="created_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="updated_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="cost_objects_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_cost_objects_on_project_id_and_updated_on" unique="false">
+            <column ascending="true" name="project_id"/>
+            <column ascending="true" name="updated_on"/>
+         </index>
+      </table>
+      <table name="cost_queries" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('cost_queries_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="user_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="project_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="4" name="is_public" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="6" id="5" name="created_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="updated_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="serialized" nullable="false" remarks="" size="2000" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="cost_queries_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="cost_types" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('cost_types_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="unit" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="unit_plural" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="4" name="default" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="6" id="5" name="deleted_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="cost_types_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="custom_actions" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('custom_actions_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="actions" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="position" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="custom_actions_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="custom_actions_projects" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('custom_actions_projects_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="project_id" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="2" name="custom_action_id" nullable="true" remarks="" size="19" type="int8"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="custom_actions_projects_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_custom_actions_projects_on_custom_action_id" unique="false">
+            <column ascending="true" name="custom_action_id"/>
+         </index>
+         <index name="index_custom_actions_projects_on_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+      </table>
+      <table name="custom_actions_roles" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('custom_actions_roles_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="role_id" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="2" name="custom_action_id" nullable="true" remarks="" size="19" type="int8"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="custom_actions_roles_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_custom_actions_roles_on_custom_action_id" unique="false">
+            <column ascending="true" name="custom_action_id"/>
+         </index>
+         <index name="index_custom_actions_roles_on_role_id" unique="false">
+            <column ascending="true" name="role_id"/>
+         </index>
+      </table>
+      <table name="custom_actions_statuses" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('custom_actions_statuses_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="status_id" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="2" name="custom_action_id" nullable="true" remarks="" size="19" type="int8"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="custom_actions_statuses_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_custom_actions_statuses_on_custom_action_id" unique="false">
+            <column ascending="true" name="custom_action_id"/>
+         </index>
+         <index name="index_custom_actions_statuses_on_status_id" unique="false">
+            <column ascending="true" name="status_id"/>
+         </index>
+      </table>
+      <table name="custom_actions_types" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('custom_actions_types_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="type_id" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="2" name="custom_action_id" nullable="true" remarks="" size="19" type="int8"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="custom_actions_types_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_custom_actions_types_on_custom_action_id" unique="false">
+            <column ascending="true" name="custom_action_id"/>
+         </index>
+         <index name="index_custom_actions_types_on_type_id" unique="false">
+            <column ascending="true" name="type_id"/>
+         </index>
+      </table>
+      <table name="custom_fields" numRows="3" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('custom_fields_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="1" name="type" nullable="false" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="field_format" nullable="false" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="regexp" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="min_length" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="max_length" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="6" name="is_required" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="7" name="is_for_all" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="8" name="is_filter" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="1" digits="0" id="9" name="position" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="10" name="searchable" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="11" name="editable" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="12" name="visible" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="13" name="multi_value" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="14" name="default_value" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="NULL::character varying" digits="0" id="15" name="name" nullable="true" remarks="" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="16" name="created_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="17" name="updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="custom_fields_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_custom_fields_on_id_and_type" unique="false">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="type"/>
+         </index>
+      </table>
+      <table name="custom_fields_projects" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="0" digits="0" id="0" name="custom_field_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <index name="index_custom_fields_projects_on_custom_field_id_and_project_id" unique="false">
+            <column ascending="true" name="custom_field_id"/>
+            <column ascending="true" name="project_id"/>
+         </index>
+      </table>
+      <table name="custom_fields_types" numRows="4" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="0" digits="0" id="0" name="custom_field_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="type_id" nullable="false" remarks="" size="10" type="int4"/>
+         <index name="custom_fields_types_unique" unique="true">
+            <column ascending="true" name="custom_field_id"/>
+            <column ascending="true" name="type_id"/>
+         </index>
+      </table>
+      <table name="custom_options" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('custom_options_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="custom_field_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="position" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="default_value" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="4" name="value" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="5" name="created_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="custom_options_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="custom_styles" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('custom_styles_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="logo" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="2" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="3" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="4" name="favicon" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="touch_icon" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="custom_styles_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="custom_values" numRows="123" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('custom_values_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="1" name="customized_type" nullable="false" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="customized_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="custom_field_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="value" nullable="true" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="custom_values_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="custom_values_customized" unique="false">
+            <column ascending="true" name="customized_type"/>
+            <column ascending="true" name="customized_id"/>
+         </index>
+         <index name="index_custom_values_on_custom_field_id" unique="false">
+            <column ascending="true" name="custom_field_id"/>
+         </index>
+      </table>
+      <table name="customizable_journals" numRows="20" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('customizable_journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="custom_field_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="value" nullable="true" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="customizable_journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_customizable_journals_on_custom_field_id" unique="false">
+            <column ascending="true" name="custom_field_id"/>
+         </index>
+         <index name="index_customizable_journals_on_journal_id" unique="false">
+            <column ascending="true" name="journal_id"/>
+         </index>
+      </table>
+      <table name="delayed_jobs" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('delayed_jobs_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="priority" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="attempts" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="handler" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="last_error" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="5" name="run_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="locked_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="failed_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="8" name="locked_by" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="9" name="created_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="11" name="queue" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="delayed_jobs_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="delayed_jobs_priority" unique="false">
+            <column ascending="true" name="priority"/>
+            <column ascending="true" name="run_at"/>
+         </index>
+      </table>
+      <table name="design_colors" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('design_colors_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="variable" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="hexcode" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="3" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="4" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="design_colors_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_design_colors_on_variable" unique="true">
+            <column ascending="true" name="variable"/>
+         </index>
+      </table>
+      <table name="document_journals" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('document_journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="category_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="title" nullable="false" remarks="" size="60" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="6" name="created_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="document_journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="documents" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('documents_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="category_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="title" nullable="false" remarks="" size="60" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="5" name="created_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="documents_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="documents_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+         <index name="index_documents_on_category_id" unique="false">
+            <column ascending="true" name="category_id"/>
+         </index>
+         <index name="index_documents_on_created_on" unique="false">
+            <column ascending="true" name="created_on"/>
+         </index>
+      </table>
+      <table name="done_statuses_for_project" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="project_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="status_id" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="enabled_modules" numRows="29" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('enabled_modules_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="project_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="enabled_modules_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="enabled_modules_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+         <index name="index_enabled_modules_on_name" unique="false">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="enterprise_tokens" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('enterprise_tokens_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="encoded_token" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="2" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="3" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="enterprise_tokens_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="enumerations" numRows="13" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('enumerations_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="1" name="name" nullable="false" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="1" digits="0" id="2" name="position" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="3" name="is_default" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="4" name="type" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="5" name="active" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="6" name="project_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="parent_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="8" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="10" name="color_id" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="enumerations_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_enumerations_on_color_id" unique="false">
+            <column ascending="true" name="color_id"/>
+         </index>
+         <index name="index_enumerations_on_id_and_type" unique="false">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="type"/>
+         </index>
+         <index name="index_enumerations_on_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+      </table>
+      <table name="export_card_configurations" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('export_card_configurations_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="per_page" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="page_size" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="orientation" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="rows" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="6" name="active" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="7" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="export_card_configurations_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="forums" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('forums_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="description" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="1" digits="0" id="4" name="position" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="topics_count" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="messages_count" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="last_message_id" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="forums_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="forums_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+         <index name="index_forums_on_last_message_id" unique="false">
+            <column ascending="true" name="last_message_id"/>
+         </index>
+      </table>
+      <table name="grid_widgets" numRows="18" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('grid_widgets_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="bigserial"/>
+         <column autoUpdated="false" digits="0" id="1" name="start_row" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="end_row" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="start_column" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="end_column" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="identifier" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="options" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="grid_id" nullable="true" remarks="" size="19" type="int8"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="grid_widgets_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_grid_widgets_on_grid_id" unique="false">
+            <column ascending="true" name="grid_id"/>
+         </index>
+      </table>
+      <table name="grids" numRows="5" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('grids_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="bigserial"/>
+         <column autoUpdated="false" digits="0" id="1" name="row_count" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="column_count" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="type" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="user_id" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="6" id="5" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="project_id" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="8" name="name" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="9" name="options" nullable="true" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="grids_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_grids_on_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+         <index name="index_grids_on_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="group_users" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="group_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="user_id" nullable="false" remarks="" size="10" type="int4"/>
+         <index name="group_user_ids" unique="true">
+            <column ascending="true" name="group_id"/>
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="journals" numRows="226" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journable_type" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="journable_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="user_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="notes" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="5" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="version" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="activity_type" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_journals_on_activity_type" unique="false">
+            <column ascending="true" name="activity_type"/>
+         </index>
+         <index name="index_journals_on_created_at" unique="false">
+            <column ascending="true" name="created_at"/>
+         </index>
+         <index name="index_journals_on_journable_id" unique="false">
+            <column ascending="true" name="journable_id"/>
+         </index>
+         <index name="index_journals_on_journable_type" unique="false">
+            <column ascending="true" name="journable_type"/>
+         </index>
+         <index name="index_journals_on_journable_type_and_journable_id_and_version" unique="true">
+            <column ascending="true" name="journable_type"/>
+            <column ascending="true" name="journable_id"/>
+            <column ascending="true" name="version"/>
+         </index>
+         <index name="index_journals_on_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="labor_budget_items" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('labor_budget_items_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="cost_object_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="2" name="hours" nullable="false" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="3" name="user_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="comments" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="4" id="5" name="budget" nullable="true" remarks="" size="15" type="numeric"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="labor_budget_items_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="ldap_groups_memberships" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('ldap_groups_memberships_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="user_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="group_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="3" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="4" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="ldap_groups_memberships_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_ldap_groups_memberships_on_group_id" unique="false">
+            <column ascending="true" name="group_id"/>
+         </index>
+         <index name="index_ldap_groups_memberships_on_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="ldap_groups_synchronized_groups" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('ldap_groups_synchronized_groups_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="entry" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="group_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="auth_source_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="4" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="5" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="ldap_groups_synchronized_groups_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_ldap_groups_synchronized_groups_on_auth_source_id" unique="false">
+            <column ascending="true" name="auth_source_id"/>
+         </index>
+         <index name="index_ldap_groups_synchronized_groups_on_group_id" unique="false">
+            <column ascending="true" name="group_id"/>
+         </index>
+      </table>
+      <table name="material_budget_items" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('material_budget_items_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="cost_object_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="2" name="units" nullable="false" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="3" name="cost_type_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="comments" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="4" id="5" name="budget" nullable="true" remarks="" size="15" type="numeric"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="material_budget_items_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="meeting_content_journals" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('meeting_content_journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="meeting_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="author_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="text" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="locked" nullable="true" remarks="" size="1" type="bool"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="meeting_content_journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="meeting_contents" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('meeting_contents_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="type" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="meeting_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="author_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="text" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="lock_version" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="6" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="8" name="locked" nullable="true" remarks="" size="1" type="bool"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="meeting_contents_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="meeting_journals" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('meeting_journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="title" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="author_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="project_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="location" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="6" name="start_time" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="17" id="7" name="duration" nullable="true" remarks="" size="17" type="float8"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="meeting_journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="meeting_participants" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('meeting_participants_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="user_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="meeting_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="email" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="name" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="invited" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="6" name="attended" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="6" id="7" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="meeting_participants_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="meetings" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('meetings_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="title" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="author_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="project_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="location" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="5" name="start_time" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="17" id="6" name="duration" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="6" id="7" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="meetings_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_meetings_on_project_id_and_updated_at" unique="false">
+            <column ascending="true" name="project_id"/>
+            <column ascending="true" name="updated_at"/>
+         </index>
+      </table>
+      <table name="member_roles" numRows="2" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('member_roles_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="member_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="role_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="inherited_from" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="member_roles_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_member_roles_on_inherited_from" unique="false">
+            <column ascending="true" name="inherited_from"/>
+         </index>
+         <index name="index_member_roles_on_member_id" unique="false">
+            <column ascending="true" name="member_id"/>
+         </index>
+         <index name="index_member_roles_on_role_id" unique="false">
+            <column ascending="true" name="role_id"/>
+         </index>
+      </table>
+      <table name="members" numRows="2" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('members_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="user_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="3" name="created_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="4" name="mail_notification" nullable="false" remarks="" size="1" type="bool"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="members_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_members_on_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+         <index name="index_members_on_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+         <index name="index_members_on_user_id_and_project_id" unique="true">
+            <column ascending="true" name="user_id"/>
+            <column ascending="true" name="project_id"/>
+         </index>
+      </table>
+      <table name="menu_items" numRows="12" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('menu_items_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="title" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="parent_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="options" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="navigatable_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="type" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="menu_items_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_menu_items_on_navigatable_id_and_title" unique="false">
+            <column ascending="true" name="navigatable_id"/>
+            <column ascending="true" name="title"/>
+         </index>
+         <index name="index_menu_items_on_parent_id" unique="false">
+            <column ascending="true" name="parent_id"/>
+         </index>
+      </table>
+      <table name="message_journals" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('message_journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="forum_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="parent_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="subject" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="content" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="author_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="replies_count" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="last_reply_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="9" name="locked" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="10" name="sticky" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="message_journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_message_journals_on_journal_id" unique="false">
+            <column ascending="true" name="journal_id"/>
+         </index>
+      </table>
+      <table name="messages" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('messages_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="forum_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="parent_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="subject" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="content" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="author_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="replies_count" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="last_reply_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="8" name="created_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="9" name="updated_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="10" name="locked" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="11" name="sticky" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="12" name="sticked_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="messages_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_messages_on_author_id" unique="false">
+            <column ascending="true" name="author_id"/>
+         </index>
+         <index name="index_messages_on_created_on" unique="false">
+            <column ascending="true" name="created_on"/>
+         </index>
+         <index name="index_messages_on_forum_id_and_updated_on" unique="false">
+            <column ascending="true" name="forum_id"/>
+            <column ascending="true" name="updated_on"/>
+         </index>
+         <index name="index_messages_on_last_reply_id" unique="false">
+            <column ascending="true" name="last_reply_id"/>
+         </index>
+         <index name="messages_board_id" unique="false">
+            <column ascending="true" name="forum_id"/>
+         </index>
+         <index name="messages_parent_id" unique="false">
+            <column ascending="true" name="parent_id"/>
+         </index>
+      </table>
+      <table name="my_projects_overviews" numRows="4" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('my_projects_overviews_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="left" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="right" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="top" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="hidden" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="6" name="created_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="my_projects_overviews_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="news" numRows="2" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('news_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="project_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="title" nullable="false" remarks="" size="60" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="summary" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="author_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="6" name="created_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="comments_count" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="news_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_news_on_author_id" unique="false">
+            <column ascending="true" name="author_id"/>
+         </index>
+         <index name="index_news_on_created_on" unique="false">
+            <column ascending="true" name="created_on"/>
+         </index>
+         <index name="index_news_on_project_id_and_created_on" unique="false">
+            <column ascending="true" name="project_id"/>
+            <column ascending="true" name="created_on"/>
+         </index>
+         <index name="news_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+      </table>
+      <table name="news_journals" numRows="2" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('news_journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="project_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="title" nullable="false" remarks="" size="60" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="summary" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="author_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="comments_count" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="news_journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_news_journals_on_journal_id" unique="false">
+            <column ascending="true" name="journal_id"/>
+         </index>
+      </table>
+      <table name="oauth_access_grants" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('oauth_access_grants_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="bigserial"/>
+         <column autoUpdated="false" digits="0" id="1" name="resource_owner_id" nullable="false" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="2" name="application_id" nullable="false" remarks="" size="19" type="int8">
+            <parent column="id" foreignKey="fk_rails_b4b53e07b8" implied="false" onDeleteCascade="false" schema="public" table="oauth_applications"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="token" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="expires_in" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="redirect_uri" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="6" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="revoked_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="8" name="scopes" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="code_challenge" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="code_challenge_method" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="oauth_access_grants_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_oauth_access_grants_on_application_id" unique="false">
+            <column ascending="true" name="application_id"/>
+         </index>
+         <index name="index_oauth_access_grants_on_resource_owner_id" unique="false">
+            <column ascending="true" name="resource_owner_id"/>
+         </index>
+         <index name="index_oauth_access_grants_on_token" unique="true">
+            <column ascending="true" name="token"/>
+         </index>
+      </table>
+      <table name="oauth_access_tokens" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('oauth_access_tokens_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="bigserial"/>
+         <column autoUpdated="false" digits="0" id="1" name="resource_owner_id" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="2" name="application_id" nullable="true" remarks="" size="19" type="int8">
+            <parent column="id" foreignKey="fk_rails_732cb83ab7" implied="false" onDeleteCascade="false" schema="public" table="oauth_applications"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="token" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="refresh_token" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="expires_in" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="6" name="revoked_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="8" name="scopes" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="9" name="previous_refresh_token" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="oauth_access_tokens_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_oauth_access_tokens_on_application_id" unique="false">
+            <column ascending="true" name="application_id"/>
+         </index>
+         <index name="index_oauth_access_tokens_on_refresh_token" unique="true">
+            <column ascending="true" name="refresh_token"/>
+         </index>
+         <index name="index_oauth_access_tokens_on_resource_owner_id" unique="false">
+            <column ascending="true" name="resource_owner_id"/>
+         </index>
+         <index name="index_oauth_access_tokens_on_token" unique="true">
+            <column ascending="true" name="token"/>
+         </index>
+      </table>
+      <table name="oauth_applications" numRows="2" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('oauth_applications_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="bigserial">
+            <child column="application_id" foreignKey="fk_rails_b4b53e07b8" implied="false" onDeleteCascade="false" schema="public" table="oauth_access_grants"/>
+            <child column="application_id" foreignKey="fk_rails_732cb83ab7" implied="false" onDeleteCascade="false" schema="public" table="oauth_access_tokens"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="uid" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="secret" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="owner_type" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="owner_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_rails_cc886e315a" implied="false" onDeleteCascade="false" schema="public" table="users"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="client_credentials_user_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_rails_3d1f3b58d2" implied="false" onDeleteCascade="false" schema="public" table="users"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="7" name="redirect_uri" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="8" name="scopes" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="9" name="confidential" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="6" id="10" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="11" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="oauth_applications_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_oauth_applications_on_owner_id_and_owner_type" unique="false">
+            <column ascending="true" name="owner_id"/>
+            <column ascending="true" name="owner_type"/>
+         </index>
+         <index name="index_oauth_applications_on_uid" unique="true">
+            <column ascending="true" name="uid"/>
+         </index>
+      </table>
+      <table name="ordered_work_packages" numRows="13" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('ordered_work_packages_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="bigserial"/>
+         <column autoUpdated="false" digits="0" id="1" name="position" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="query_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_rails_e99c4d5dfe" implied="false" onDeleteCascade="true" schema="public" table="queries"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="work_package_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_rails_fe038e4e03" implied="false" onDeleteCascade="true" schema="public" table="work_packages"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="ordered_work_packages_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_ordered_work_packages_on_position" unique="false">
+            <column ascending="true" name="position"/>
+         </index>
+         <index name="index_ordered_work_packages_on_query_id" unique="false">
+            <column ascending="true" name="query_id"/>
+         </index>
+         <index name="index_ordered_work_packages_on_work_package_id" unique="false">
+            <column ascending="true" name="work_package_id"/>
+         </index>
+      </table>
+      <table name="plaintext_tokens" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('plaintext_tokens_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="user_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="action" nullable="false" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="value" nullable="false" remarks="" size="40" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="4" name="created_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="plaintext_tokens_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_plaintext_tokens_on_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="principal_roles" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('principal_roles_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="role_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="principal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="3" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="4" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="principal_roles_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_principal_roles_on_principal_id" unique="false">
+            <column ascending="true" name="principal_id"/>
+         </index>
+         <index name="index_principal_roles_on_role_id" unique="false">
+            <column ascending="true" name="role_id"/>
+         </index>
+      </table>
+      <table name="project_associations" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('project_associations_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="project_a_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="project_b_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="4" name="created_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="5" name="updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="project_associations_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_project_associations_on_project_a_id" unique="false">
+            <column ascending="true" name="project_a_id"/>
+         </index>
+         <index name="index_project_associations_on_project_b_id" unique="false">
+            <column ascending="true" name="project_b_id"/>
+         </index>
+      </table>
+      <table name="projects" numRows="4" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('projects_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="project_id" foreignKey="fk_rails_e978b5e3d7" implied="false" onDeleteCascade="false" schema="public" table="webhooks_projects"/>
+         </column>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="3" name="is_public" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="4" name="parent_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="5" name="created_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="updated_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="identifier" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="1" digits="0" id="8" name="status" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="lft" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="rgt" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="projects_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_projects_on_identifier" unique="false">
+            <column ascending="true" name="identifier"/>
+         </index>
+         <index name="index_projects_on_lft" unique="false">
+            <column ascending="true" name="lft"/>
+         </index>
+         <index name="index_projects_on_rgt" unique="false">
+            <column ascending="true" name="rgt"/>
+         </index>
+      </table>
+      <table name="projects_types" numRows="31" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="0" digits="0" id="0" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="type_id" nullable="false" remarks="" size="10" type="int4"/>
+         <index name="projects_types_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+         <index name="projects_types_unique" unique="true">
+            <column ascending="true" name="project_id"/>
+            <column ascending="true" name="type_id"/>
+         </index>
+      </table>
+      <table name="queries" numRows="24" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('queries_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="query_id" foreignKey="fk_rails_e99c4d5dfe" implied="false" onDeleteCascade="true" schema="public" table="ordered_work_packages"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="project_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="filters" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="user_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="5" name="is_public" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="6" name="column_names" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="sort_criteria" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="8" name="group_by" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="9" name="display_sums" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="10" name="timeline_visible" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="11" name="show_hierarchies" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="5" digits="0" id="12" name="timeline_zoom_level" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="13" name="timeline_labels" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="14" name="highlighting_mode" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="15" name="highlighted_attributes" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="16" name="hidden" nullable="true" remarks="" size="1" type="bool"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="queries_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_queries_on_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+         <index name="index_queries_on_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="rates" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('rates_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="valid_from" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="4" id="2" name="rate" nullable="false" remarks="" size="15" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="3" name="type" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="project_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="user_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="cost_type_id" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="rates_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="relations" numRows="220" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('relations_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="from_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="to_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="delay" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="hierarchy" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="relates" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="duplicates" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="8" name="blocks" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="9" name="follows" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="10" name="includes" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="11" name="requires" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="12" name="count" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="relations_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_relations_direct_non_hierarchy" unique="false">
+            <column ascending="true" name="from_id"/>
+         </index>
+         <index name="index_relations_hierarchy_follows_scheduling" unique="false">
+            <column ascending="true" name="to_id"/>
+            <column ascending="true" name="hierarchy"/>
+            <column ascending="true" name="follows"/>
+            <column ascending="true" name="from_id"/>
+         </index>
+         <index name="index_relations_on_count" unique="false">
+            <column ascending="true" name="count"/>
+         </index>
+         <index name="index_relations_on_from_id" unique="false">
+            <column ascending="true" name="from_id"/>
+         </index>
+         <index name="index_relations_on_to_id" unique="false">
+            <column ascending="true" name="to_id"/>
+         </index>
+         <index name="index_relations_on_type_columns" unique="true">
+            <column ascending="true" name="from_id"/>
+            <column ascending="true" name="to_id"/>
+            <column ascending="true" name="hierarchy"/>
+            <column ascending="true" name="relates"/>
+            <column ascending="true" name="duplicates"/>
+            <column ascending="true" name="blocks"/>
+            <column ascending="true" name="follows"/>
+            <column ascending="true" name="includes"/>
+            <column ascending="true" name="requires"/>
+         </index>
+         <index name="index_relations_only_hierarchy" unique="false">
+            <column ascending="true" name="from_id"/>
+            <column ascending="true" name="to_id"/>
+            <column ascending="true" name="hierarchy"/>
+         </index>
+         <index name="index_relations_to_from_only_follows" unique="false">
+            <column ascending="true" name="to_id"/>
+            <column ascending="true" name="follows"/>
+            <column ascending="true" name="from_id"/>
+         </index>
+      </table>
+      <table name="repositories" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('repositories_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="url" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="login" nullable="true" remarks="" size="60" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="password" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="5" name="root_url" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="type" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="path_encoding" nullable="true" remarks="" size="64" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="8" name="log_encoding" nullable="true" remarks="" size="64" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="scm_type" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="10" name="required_storage_bytes" nullable="false" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="6" id="11" name="storage_updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="repositories_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_repositories_on_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+      </table>
+      <table name="role_permissions" numRows="196" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('role_permissions_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="permission" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="role_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="3" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="4" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="role_permissions_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_role_permissions_on_role_id" unique="false">
+            <column ascending="true" name="role_id"/>
+         </index>
+      </table>
+      <table name="roles" numRows="6" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('roles_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="1" name="name" nullable="false" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="1" digits="0" id="2" name="position" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="3" name="assignable" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="builtin" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="'Role'::character varying" digits="0" id="5" name="type" nullable="true" remarks="" size="30" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="roles_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="schema_migrations" numRows="63" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="version" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="version" sequenceNumberInPK="1"/>
+         <index name="schema_migrations_pkey" unique="true">
+            <column ascending="true" name="version"/>
+         </index>
+      </table>
+      <table name="sessions" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('sessions_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="session_id" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="data" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="3" name="created_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="4" name="updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="user_id" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="sessions_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_sessions_on_session_id" unique="false">
+            <column ascending="true" name="session_id"/>
+         </index>
+         <index name="index_sessions_on_updated_at" unique="false">
+            <column ascending="true" name="updated_at"/>
+         </index>
+      </table>
+      <table name="settings" numRows="120" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('settings_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="value" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="3" name="updated_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="settings_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_settings_on_name" unique="false">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="statuses" numRows="15" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('statuses_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="1" name="name" nullable="false" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="2" name="is_closed" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="3" name="is_default" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="1" digits="0" id="4" name="position" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="default_done_ratio" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="6" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="7" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="8" name="color_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="9" name="is_readonly" nullable="true" remarks="" size="1" type="bool"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="statuses_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_statuses_on_color_id" unique="false">
+            <column ascending="true" name="color_id"/>
+         </index>
+         <index name="index_statuses_on_is_closed" unique="false">
+            <column ascending="true" name="is_closed"/>
+         </index>
+         <index name="index_statuses_on_is_default" unique="false">
+            <column ascending="true" name="is_default"/>
+         </index>
+         <index name="index_statuses_on_position" unique="false">
+            <column ascending="true" name="position"/>
+         </index>
+      </table>
+      <table name="time_entries" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('time_entries_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="user_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="work_package_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="4" name="hours" nullable="false" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="5" name="comments" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="activity_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="spent_on" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="8" name="tyear" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="tmonth" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="tweek" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="11" name="created_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="12" name="updated_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="4" id="13" name="overridden_costs" nullable="true" remarks="" size="15" type="numeric"/>
+         <column autoUpdated="false" digits="4" id="14" name="costs" nullable="true" remarks="" size="15" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="15" name="rate_id" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="time_entries_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_time_entries_on_activity_id" unique="false">
+            <column ascending="true" name="activity_id"/>
+         </index>
+         <index name="index_time_entries_on_created_on" unique="false">
+            <column ascending="true" name="created_on"/>
+         </index>
+         <index name="index_time_entries_on_project_id_and_updated_on" unique="false">
+            <column ascending="true" name="project_id"/>
+            <column ascending="true" name="updated_on"/>
+         </index>
+         <index name="index_time_entries_on_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+         <index name="time_entries_issue_id" unique="false">
+            <column ascending="true" name="work_package_id"/>
+         </index>
+         <index name="time_entries_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+      </table>
+      <table name="time_entry_journals" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('time_entry_journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="user_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="work_package_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="5" name="hours" nullable="false" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="6" name="comments" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="activity_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="spent_on" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="9" name="tyear" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="tmonth" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="11" name="tweek" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="2" id="12" name="overridden_costs" nullable="true" remarks="" size="15" type="numeric"/>
+         <column autoUpdated="false" digits="2" id="13" name="costs" nullable="true" remarks="" size="15" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="14" name="rate_id" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="time_entry_journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_time_entry_journals_on_journal_id" unique="false">
+            <column ascending="true" name="journal_id"/>
+         </index>
+      </table>
+      <table name="tokens" numRows="2" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('tokens_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="user_id" nullable="true" remarks="" size="19" type="int8"/>
+         <column autoUpdated="false" digits="0" id="2" name="type" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="value" nullable="false" remarks="" size="128" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="4" name="created_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="5" name="expires_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="tokens_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_tokens_on_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="two_factor_authentication_devices" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('two_factor_authentication_devices_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="type" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="2" name="default" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="3" name="active" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="4" name="channel" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="phone_number" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="6" name="identifier" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="7" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="9" name="last_used_at" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="otp_secret" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="11" name="user_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_rails_0b09e132e7" implied="false" onDeleteCascade="false" schema="public" table="users"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="two_factor_authentication_devices_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_two_factor_authentication_devices_on_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="types" numRows="10" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('types_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="1" digits="0" id="2" name="position" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="3" name="is_in_roadmap" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="4" name="is_milestone" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="5" name="is_default" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="6" name="color_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="7" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="9" name="is_standard" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="10" name="attribute_groups" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="11" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="types_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_types_on_color_id" unique="false">
+            <column ascending="true" name="color_id"/>
+         </index>
+      </table>
+      <table name="user_passwords" numRows="1" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('user_passwords_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="user_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="hashed_password" nullable="false" remarks="" size="128" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="salt" nullable="true" remarks="" size="64" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="4" name="created_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="5" name="updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="6" name="type" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="user_passwords_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_user_passwords_on_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="user_preferences" numRows="1" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('user_preferences_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="user_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="others" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="3" name="hide_mail" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="4" name="time_zone" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="user_preferences_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_user_preferences_on_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table name="users" numRows="2" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('users_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="client_credentials_user_id" foreignKey="fk_rails_3d1f3b58d2" implied="false" onDeleteCascade="false" schema="public" table="oauth_applications"/>
+            <child column="owner_id" foreignKey="fk_rails_cc886e315a" implied="false" onDeleteCascade="false" schema="public" table="oauth_applications"/>
+            <child column="user_id" foreignKey="fk_rails_0b09e132e7" implied="false" onDeleteCascade="false" schema="public" table="two_factor_authentication_devices"/>
+         </column>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="1" name="login" nullable="false" remarks="" size="256" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="firstname" nullable="false" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="lastname" nullable="false" remarks="" size="30" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="mail" nullable="false" remarks="" size="60" type="varchar"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="5" name="admin" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="1" digits="0" id="6" name="status" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="7" name="last_login_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="8" name="language" nullable="true" remarks="" size="5" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="9" name="auth_source_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="10" name="created_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="11" name="updated_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="12" name="type" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="13" name="identity_url" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="14" name="mail_notification" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="15" name="first_login" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="16" name="force_password_change" nullable="true" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="17" name="failed_login_count" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="18" name="last_failed_login_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="19" name="consented_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="users_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_users_on_auth_source_id" unique="false">
+            <column ascending="true" name="auth_source_id"/>
+         </index>
+         <index name="index_users_on_id_and_type" unique="false">
+            <column ascending="true" name="id"/>
+            <column ascending="true" name="type"/>
+         </index>
+         <index name="index_users_on_type" unique="false">
+            <column ascending="true" name="type"/>
+         </index>
+         <index name="index_users_on_type_and_login" unique="false">
+            <column ascending="true" name="type"/>
+            <column ascending="true" name="login"/>
+         </index>
+         <index name="index_users_on_type_and_status" unique="false">
+            <column ascending="true" name="type"/>
+            <column ascending="true" name="status"/>
+         </index>
+      </table>
+      <table name="version_settings" numRows="4" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('version_settings_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="project_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="version_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="display" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="4" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="5" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="version_settings_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_version_settings_on_project_id_and_version_id" unique="false">
+            <column ascending="true" name="project_id"/>
+            <column ascending="true" name="version_id"/>
+         </index>
+      </table>
+      <table name="versions" numRows="5" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('versions_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="name" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="description" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="effective_date" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="6" id="5" name="created_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="6" name="updated_on" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="7" name="wiki_page_title" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="'open'::character varying" digits="0" id="8" name="status" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="'none'::character varying" digits="0" id="9" name="sharing" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="10" name="start_date" nullable="true" remarks="" size="13" type="date"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="versions_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_versions_on_sharing" unique="false">
+            <column ascending="true" name="sharing"/>
+         </index>
+         <index name="versions_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+      </table>
+      <table name="watchers" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('watchers_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="1" name="watchable_type" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="watchable_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="user_id" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="watchers_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_watchers_on_user_id" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+         <index name="index_watchers_on_watchable_id_and_watchable_type" unique="false">
+            <column ascending="true" name="watchable_id"/>
+            <column ascending="true" name="watchable_type"/>
+         </index>
+         <index name="watchers_user_id_type" unique="false">
+            <column ascending="true" name="user_id"/>
+            <column ascending="true" name="watchable_type"/>
+         </index>
+      </table>
+      <table name="webhooks_events" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('webhooks_events_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="webhooks_webhook_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_rails_a166925c91" implied="false" onDeleteCascade="false" schema="public" table="webhooks_webhooks"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="webhooks_events_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_webhooks_events_on_webhooks_webhook_id" unique="false">
+            <column ascending="true" name="webhooks_webhook_id"/>
+         </index>
+      </table>
+      <table name="webhooks_logs" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('webhooks_logs_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="webhooks_webhook_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_rails_551257cdac" implied="false" onDeleteCascade="true" schema="public" table="webhooks_webhooks"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="event_name" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="url" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="request_headers" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="request_body" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="response_code" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="7" name="response_headers" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="8" name="response_body" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="9" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="10" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="webhooks_logs_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_webhooks_logs_on_webhooks_webhook_id" unique="false">
+            <column ascending="true" name="webhooks_webhook_id"/>
+         </index>
+      </table>
+      <table name="webhooks_projects" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('webhooks_projects_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="project_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_rails_e978b5e3d7" implied="false" onDeleteCascade="false" schema="public" table="projects"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="webhooks_webhook_id" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="fk_rails_d7ea5de5b8" implied="false" onDeleteCascade="false" schema="public" table="webhooks_webhooks"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="webhooks_projects_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_webhooks_projects_on_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+         <index name="index_webhooks_projects_on_webhooks_webhook_id" unique="false">
+            <column ascending="true" name="webhooks_webhook_id"/>
+         </index>
+      </table>
+      <table name="webhooks_webhooks" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('webhooks_webhooks_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="webhooks_webhook_id" foreignKey="fk_rails_a166925c91" implied="false" onDeleteCascade="false" schema="public" table="webhooks_events"/>
+            <child column="webhooks_webhook_id" foreignKey="fk_rails_551257cdac" implied="false" onDeleteCascade="true" schema="public" table="webhooks_logs"/>
+            <child column="webhooks_webhook_id" foreignKey="fk_rails_d7ea5de5b8" implied="false" onDeleteCascade="false" schema="public" table="webhooks_projects"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="url" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="description" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="secret" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="enabled" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="6" name="all_projects" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="6" id="7" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="8" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="webhooks_webhooks_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="wiki_content_journals" numRows="5" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('wiki_content_journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="page_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="author_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="text" nullable="true" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="wiki_content_journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_wiki_content_journals_on_journal_id" unique="false">
+            <column ascending="true" name="journal_id"/>
+         </index>
+      </table>
+      <table name="wiki_contents" numRows="5" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('wiki_contents_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="page_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="author_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="text" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="4" name="updated_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="5" name="lock_version" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="wiki_contents_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_wiki_contents_on_author_id" unique="false">
+            <column ascending="true" name="author_id"/>
+         </index>
+         <index name="index_wiki_contents_on_page_id_and_updated_on" unique="false">
+            <column ascending="true" name="page_id"/>
+            <column ascending="true" name="updated_on"/>
+         </index>
+         <index name="wiki_contents_page_id" unique="false">
+            <column ascending="true" name="page_id"/>
+         </index>
+      </table>
+      <table name="wiki_pages" numRows="5" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('wiki_pages_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="wiki_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="title" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="3" name="created_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="4" name="protected" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="5" name="parent_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="slug" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="7" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="wiki_pages_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_wiki_pages_on_parent_id" unique="false">
+            <column ascending="true" name="parent_id"/>
+         </index>
+         <index name="index_wiki_pages_on_wiki_id" unique="false">
+            <column ascending="true" name="wiki_id"/>
+         </index>
+         <index name="wiki_pages_wiki_id_slug" unique="true">
+            <column ascending="true" name="wiki_id"/>
+            <column ascending="true" name="slug"/>
+         </index>
+         <index name="wiki_pages_wiki_id_title" unique="false">
+            <column ascending="true" name="wiki_id"/>
+            <column ascending="true" name="title"/>
+         </index>
+      </table>
+      <table name="wiki_redirects" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('wiki_redirects_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="wiki_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="title" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="redirects_to" nullable="true" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="6" id="4" name="created_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="wiki_redirects_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_wiki_redirects_on_wiki_id" unique="false">
+            <column ascending="true" name="wiki_id"/>
+         </index>
+         <index name="wiki_redirects_wiki_id_title" unique="false">
+            <column ascending="true" name="wiki_id"/>
+            <column ascending="true" name="title"/>
+         </index>
+      </table>
+      <table name="wikis" numRows="4" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('wikis_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="start_page" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" defaultValue="1" digits="0" id="3" name="status" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="6" id="4" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="5" name="updated_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="wikis_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="wikis_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+      </table>
+      <table name="work_package_journals" numRows="234" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('work_package_journals_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="journal_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="type_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="subject" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="due_date" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="7" name="category_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="8" name="status_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="assigned_to_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="10" name="priority_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="11" name="fixed_version_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="12" name="author_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="13" name="done_ratio" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="14" name="estimated_hours" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="0" id="15" name="start_date" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="16" name="parent_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="17" name="responsible_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="18" name="cost_object_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="19" name="story_points" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="20" name="remaining_hours" nullable="true" remarks="" size="17" type="float8"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="work_package_journals_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_work_package_journals_on_journal_id" unique="false">
+            <column ascending="true" name="journal_id"/>
+         </index>
+         <index name="work_package_journal_on_burndown_attributes" unique="false">
+            <column ascending="true" name="fixed_version_id"/>
+            <column ascending="true" name="status_id"/>
+            <column ascending="true" name="project_id"/>
+            <column ascending="true" name="type_id"/>
+         </index>
+      </table>
+      <table name="work_packages" numRows="166" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('work_packages_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="work_package_id" foreignKey="fk_rails_fe038e4e03" implied="false" onDeleteCascade="true" schema="public" table="ordered_work_packages"/>
+         </column>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="type_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="project_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="subject" nullable="false" remarks="" size="2147483647" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="due_date" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="6" name="category_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="status_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="8" name="assigned_to_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="9" name="priority_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="10" name="fixed_version_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="11" name="author_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="12" name="lock_version" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="13" name="done_ratio" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="14" name="estimated_hours" nullable="true" remarks="" size="17" type="float8"/>
+         <column autoUpdated="false" digits="6" id="15" name="created_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="6" id="16" name="updated_at" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="17" name="start_date" nullable="true" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="18" name="responsible_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="19" name="cost_object_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="20" name="position" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="21" name="story_points" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="17" id="22" name="remaining_hours" nullable="true" remarks="" size="17" type="float8"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="work_packages_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_work_packages_on_assigned_to_id" unique="false">
+            <column ascending="true" name="assigned_to_id"/>
+         </index>
+         <index name="index_work_packages_on_author_id" unique="false">
+            <column ascending="true" name="author_id"/>
+         </index>
+         <index name="index_work_packages_on_category_id" unique="false">
+            <column ascending="true" name="category_id"/>
+         </index>
+         <index name="index_work_packages_on_created_at" unique="false">
+            <column ascending="true" name="created_at"/>
+         </index>
+         <index name="index_work_packages_on_fixed_version_id" unique="false">
+            <column ascending="true" name="fixed_version_id"/>
+         </index>
+         <index name="index_work_packages_on_project_id" unique="false">
+            <column ascending="true" name="project_id"/>
+         </index>
+         <index name="index_work_packages_on_project_id_and_updated_at" unique="false">
+            <column ascending="true" name="project_id"/>
+            <column ascending="true" name="updated_at"/>
+         </index>
+         <index name="index_work_packages_on_responsible_id" unique="false">
+            <column ascending="true" name="responsible_id"/>
+         </index>
+         <index name="index_work_packages_on_status_id" unique="false">
+            <column ascending="true" name="status_id"/>
+         </index>
+         <index name="index_work_packages_on_type_id" unique="false">
+            <column ascending="true" name="type_id"/>
+         </index>
+         <index name="index_work_packages_on_updated_at" unique="false">
+            <column ascending="true" name="updated_at"/>
+         </index>
+      </table>
+      <table name="workflows" numRows="1223" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('workflows_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="1" name="type_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="old_status_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="new_status_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="role_id" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="5" name="assignee" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="6" name="author" nullable="false" remarks="" size="1" type="bool"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="workflows_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="index_workflows_on_new_status_id" unique="false">
+            <column ascending="true" name="new_status_id"/>
+         </index>
+         <index name="index_workflows_on_old_status_id" unique="false">
+            <column ascending="true" name="old_status_id"/>
+         </index>
+         <index name="index_workflows_on_role_id" unique="false">
+            <column ascending="true" name="role_id"/>
+         </index>
+         <index name="wkfs_role_type_old_status" unique="false">
+            <column ascending="true" name="role_id"/>
+            <column ascending="true" name="type_id"/>
+            <column ascending="true" name="old_status_id"/>
+         </index>
+      </table>
+   </tables>
+</database>
