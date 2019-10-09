@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <database name="tt_rss" schema="public" type="PostgreSQL - 9.5.18">
+   <sequences>
+      <sequence increment="1" name="ttrss_access_keys_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_enclosures_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_entries_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_entry_comments_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_error_log_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_feed_categories_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_feeds_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_filters2_actions_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_filters2_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_filters2_rules_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_labels2_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_linked_instances_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_plugin_storage_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_settings_profiles_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_tags_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_user_entries_int_id_seq" startValue="1"/>
+      <sequence increment="1" name="ttrss_users_id_seq" startValue="1"/>
+   </sequences>
    <tables>
       <table name="ttrss_access_keys" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_access_keys_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
-         <column autoUpdated="false" digits="0" id="1" name="access_key" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="feed_id" nullable="false" remarks="" size="250" type="varchar">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_access_keys_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="access_key" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="feed_id" nullable="false" remarks="" size="250" type="varchar" typeCode="12">
             <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="ttrss_sessions"/>
          </column>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="3" name="is_cat" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" digits="0" id="4" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="false" digits="0" id="3" name="is_cat" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_access_keys_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
          <primaryKey column="id" sequenceNumberInPK="1"/>
@@ -17,41 +36,41 @@
          </index>
       </table>
       <table name="ttrss_archived_feeds" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <child column="orig_feed_id" foreignKey="ttrss_user_entries_orig_feed_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_user_entries"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_archived_feeds_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
-         <column autoUpdated="false" digits="6" id="2" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="0" id="3" name="title" nullable="false" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="feed_url" nullable="false" remarks="" size="2147483647" type="text">
+         <column autoUpdated="false" defaultValue="null" digits="6" id="2" name="created" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="title" nullable="false" remarks="" size="200" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="feed_url" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
             <parent column="feed_url" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="ttrss_feedbrowser_cache"/>
          </column>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="5" name="site_url" nullable="false" remarks="" size="250" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="5" name="site_url" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_archived_feeds_pkey" unique="true">
             <column ascending="true" name="id"/>
          </index>
       </table>
       <table name="ttrss_cat_counters_cache" numRows="15" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="feed_id" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="feed_id" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_cat_counters_cache_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
-         <column autoUpdated="false" digits="6" id="2" name="updated" nullable="false" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="value" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="2" name="updated" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="value" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
          <index name="ttrss_cat_counters_cache_owner_uid_idx" unique="false">
             <column ascending="true" name="owner_uid"/>
          </index>
       </table>
       <table name="ttrss_counters_cache" numRows="198" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="feed_id" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="feed_id" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_counters_cache_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
-         <column autoUpdated="false" digits="6" id="2" name="updated" nullable="false" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="value" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="2" name="updated" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="value" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
          <index name="ttrss_counters_cache_feed_id_idx" unique="false">
             <column ascending="true" name="feed_id"/>
          </index>
@@ -62,15 +81,15 @@
             <column ascending="true" name="value"/>
          </index>
       </table>
-      <table name="ttrss_enclosures" numRows="1423" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_enclosures_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
-         <column autoUpdated="false" digits="0" id="1" name="content_url" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="2" name="content_type" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="title" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="4" name="duration" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="width" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="height" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="7" name="post_id" nullable="false" remarks="" size="10" type="int4">
+      <table name="ttrss_enclosures" numRows="1532" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_enclosures_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="content_url" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="content_type" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="title" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="duration" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="width" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="height" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="post_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_enclosures_post_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_entries"/>
          </column>
          <primaryKey column="id" sequenceNumberInPK="1"/>
@@ -81,29 +100,29 @@
             <column ascending="true" name="post_id"/>
          </index>
       </table>
-      <table name="ttrss_entries" numRows="4632" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_entries_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+      <table name="ttrss_entries" numRows="4839" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_entries_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
             <child column="post_id" foreignKey="ttrss_enclosures_post_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_enclosures"/>
             <child column="ref_id" foreignKey="ttrss_entry_comments_ref_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_entry_comments"/>
             <child column="ref_id" foreignKey="ttrss_user_entries_ref_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_user_entries"/>
             <child column="article_id" foreignKey="ttrss_user_labels2_article_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_user_labels2"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="title" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="2" name="guid" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="3" name="link" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="6" id="4" name="updated" nullable="false" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="0" id="5" name="content" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="6" name="content_hash" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="7" name="cached_content" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="8" name="no_orig_date" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" digits="6" id="9" name="date_entered" nullable="false" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="6" id="10" name="date_updated" nullable="false" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="11" name="num_comments" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="12" name="comments" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="13" name="plugin_data" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="14" name="tsvector_combined" nullable="true" remarks="" size="2147483647" type="tsvector"/>
-         <column autoUpdated="false" digits="0" id="15" name="lang" nullable="true" remarks="" size="2" type="varchar"/>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="16" name="author" nullable="false" remarks="" size="250" type="varchar"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="title" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="guid" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="link" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="updated" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="content" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="content_hash" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="cached_content" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="8" name="no_orig_date" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="9" name="date_entered" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="10" name="date_updated" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="11" name="num_comments" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="12" name="comments" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="plugin_data" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="tsvector_combined" nullable="true" remarks="" size="2147483647" type="tsvector" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="lang" nullable="true" remarks="" size="2" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="16" name="author" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_entries_pkey" unique="true">
             <column ascending="true" name="id"/>
@@ -122,15 +141,15 @@
          </index>
       </table>
       <table name="ttrss_entry_comments" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_entry_comments_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
-         <column autoUpdated="false" digits="0" id="1" name="ref_id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_entry_comments_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="ref_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_entry_comments_ref_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_entries"/>
          </column>
-         <column autoUpdated="false" digits="0" id="2" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_entry_comments_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="3" name="private" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" digits="6" id="4" name="date_entered" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="3" name="private" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="date_entered" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_entry_comments_pkey" unique="true">
             <column ascending="true" name="id"/>
@@ -139,107 +158,107 @@
             <column ascending="true" name="ref_id"/>
          </index>
       </table>
-      <table name="ttrss_error_log" numRows="141" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_error_log_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
-         <column autoUpdated="false" digits="0" id="1" name="owner_uid" nullable="true" remarks="" size="10" type="int4">
+      <table name="ttrss_error_log" numRows="257" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_error_log_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_uid" nullable="true" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_error_log_owner_uid_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_users"/>
          </column>
-         <column autoUpdated="false" digits="0" id="2" name="errno" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="3" name="errstr" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="4" name="filename" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="5" name="lineno" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="6" name="context" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="6" id="7" name="created_at" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="errno" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="errstr" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="filename" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="lineno" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="context" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="7" name="created_at" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_error_log_pkey" unique="true">
             <column ascending="true" name="id"/>
          </index>
       </table>
       <table name="ttrss_feed_categories" numRows="19" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_feed_categories_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_feed_categories_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
             <child column="parent_cat" foreignKey="ttrss_feed_categories_parent_cat_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_feed_categories"/>
             <child column="cat_id" foreignKey="ttrss_feeds_cat_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_feeds"/>
             <child column="cat_id" foreignKey="ttrss_filters2_rules_cat_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_filters2_rules"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_feed_categories_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="2" name="collapsed" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="order_id" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="view_settings" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="parent_cat" nullable="true" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="false" digits="0" id="2" name="collapsed" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="order_id" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="view_settings" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="parent_cat" nullable="true" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_feed_categories_parent_cat_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_feed_categories"/>
          </column>
-         <column autoUpdated="false" digits="0" id="6" name="title" nullable="false" remarks="" size="200" type="varchar"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="title" nullable="false" remarks="" size="200" type="varchar" typeCode="12"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_feed_categories_pkey" unique="true">
             <column ascending="true" name="id"/>
          </index>
       </table>
       <table name="ttrss_feedbrowser_cache" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="feed_url" nullable="false" remarks="" size="2147483647" type="text">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="feed_url" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
             <child column="feed_url" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="ttrss_archived_feeds"/>
             <child column="feed_url" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="ttrss_feeds"/>
             <child column="feed_url" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="ttrss_linked_feeds"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="title" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="2" name="site_url" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="3" name="subscribers" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="title" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="site_url" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="subscribers" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
          <primaryKey column="feed_url" sequenceNumberInPK="1"/>
          <index name="ttrss_feedbrowser_cache_pkey" unique="true">
             <column ascending="true" name="feed_url"/>
          </index>
       </table>
       <table name="ttrss_feeds" numRows="218" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_feeds_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_feeds_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
             <child column="parent_feed" foreignKey="ttrss_feeds_parent_feed_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_feeds"/>
             <child column="feed_id" foreignKey="ttrss_filters2_rules_feed_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_filters2_rules"/>
             <child column="feed_id" foreignKey="ttrss_user_entries_feed_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_user_entries"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_feeds_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
-         <column autoUpdated="false" digits="0" id="2" name="title" nullable="false" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="cat_id" nullable="true" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="title" nullable="false" remarks="" size="200" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="cat_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_feeds_cat_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_feed_categories"/>
          </column>
-         <column autoUpdated="false" digits="0" id="4" name="feed_url" nullable="false" remarks="" size="2147483647" type="text">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="feed_url" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
             <parent column="feed_url" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="ttrss_feedbrowser_cache"/>
          </column>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="5" name="icon_url" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="update_interval" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="purge_interval" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="6" id="8" name="last_updated" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="6" id="9" name="last_unconditional" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" defaultValue="''::text" digits="0" id="10" name="last_error" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" defaultValue="''::text" digits="0" id="11" name="last_modified" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" defaultValue="NULL::character varying" digits="0" id="12" name="favicon_avg_color" nullable="true" remarks="" size="11" type="varchar"/>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="13" name="site_url" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="14" name="auth_login" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="15" name="parent_feed" nullable="true" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="5" name="icon_url" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="6" name="update_interval" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="7" name="purge_interval" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="8" name="last_updated" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="9" name="last_unconditional" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="''::text" digits="0" id="10" name="last_error" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="''::text" digits="0" id="11" name="last_modified" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="NULL::character varying" digits="0" id="12" name="favicon_avg_color" nullable="true" remarks="" size="11" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="13" name="site_url" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="14" name="auth_login" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="parent_feed" nullable="true" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_feeds_parent_feed_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_feeds"/>
          </column>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="16" name="private" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="17" name="auth_pass" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="18" name="hidden" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="true" digits="0" id="19" name="include_in_digest" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="20" name="rtl_content" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="21" name="cache_images" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="22" name="hide_images" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="23" name="cache_content" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" digits="6" id="24" name="last_viewed" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="6" id="25" name="last_update_started" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="26" name="update_method" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="27" name="always_display_enclosures" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="28" name="order_id" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="29" name="mark_unread_on_update" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="30" name="update_on_checksum_change" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="31" name="strip_images" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="32" name="view_settings" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="33" name="pubsub_state" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="6" id="34" name="favicon_last_checked" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="35" name="feed_language" nullable="false" remarks="" size="100" type="varchar"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="36" name="auth_pass_encrypted" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="16" name="private" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="17" name="auth_pass" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="18" name="hidden" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="19" name="include_in_digest" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="20" name="rtl_content" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="21" name="cache_images" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="22" name="hide_images" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="23" name="cache_content" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="24" name="last_viewed" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="25" name="last_update_started" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="26" name="update_method" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="27" name="always_display_enclosures" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="28" name="order_id" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="29" name="mark_unread_on_update" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="30" name="update_on_checksum_change" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="31" name="strip_images" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="32" name="view_settings" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="33" name="pubsub_state" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="34" name="favicon_last_checked" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="35" name="feed_language" nullable="false" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="36" name="auth_pass_encrypted" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_feeds_pkey" unique="true">
             <column ascending="true" name="id"/>
@@ -256,11 +275,11 @@
          </index>
       </table>
       <table name="ttrss_filter_actions" numRows="9" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <child column="action_id" foreignKey="ttrss_filters2_actions_action_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_filters2_actions"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="120" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="description" nullable="false" remarks="" size="250" type="varchar"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="120" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="description" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_filter_actions_pkey" unique="true">
             <column ascending="true" name="id"/>
@@ -273,11 +292,11 @@
          </index>
       </table>
       <table name="ttrss_filter_types" numRows="7" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <child column="filter_type" foreignKey="ttrss_filters2_rules_filter_type_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_filters2_rules"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="120" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="description" nullable="false" remarks="" size="250" type="varchar"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="120" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="description" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_filter_types_pkey" unique="true">
             <column ascending="true" name="id"/>
@@ -290,98 +309,98 @@
          </index>
       </table>
       <table name="ttrss_filters2" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_filters2_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_filters2_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
             <child column="filter_id" foreignKey="ttrss_filters2_actions_filter_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_filters2_actions"/>
             <child column="filter_id" foreignKey="ttrss_filters2_rules_filter_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_filters2_rules"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_filters2_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="2" name="match_any_rule" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="3" name="inverse" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="title" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="order_id" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="6" id="6" name="last_triggered" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" defaultValue="true" digits="0" id="7" name="enabled" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="2" name="match_any_rule" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="3" name="inverse" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="4" name="title" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="5" name="order_id" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="6" name="last_triggered" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="7" name="enabled" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_filters2_pkey" unique="true">
             <column ascending="true" name="id"/>
          </index>
       </table>
       <table name="ttrss_filters2_actions" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_filters2_actions_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
-         <column autoUpdated="false" digits="0" id="1" name="filter_id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_filters2_actions_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="filter_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_filters2_actions_filter_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_filters2"/>
          </column>
-         <column autoUpdated="false" defaultValue="1" digits="0" id="2" name="action_id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="1" digits="0" id="2" name="action_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_filters2_actions_action_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_filter_actions"/>
          </column>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="action_param" nullable="false" remarks="" size="250" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="action_param" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_filters2_actions_pkey" unique="true">
             <column ascending="true" name="id"/>
          </index>
       </table>
       <table name="ttrss_filters2_rules" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_filters2_rules_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
-         <column autoUpdated="false" digits="0" id="1" name="filter_id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_filters2_rules_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="filter_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_filters2_rules_filter_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_filters2"/>
          </column>
-         <column autoUpdated="false" digits="0" id="2" name="reg_exp" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="3" name="inverse" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" digits="0" id="4" name="filter_type" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="reg_exp" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="3" name="inverse" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="filter_type" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_filters2_rules_filter_type_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_filter_types"/>
          </column>
-         <column autoUpdated="false" digits="0" id="5" name="feed_id" nullable="true" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="feed_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_filters2_rules_feed_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_feeds"/>
          </column>
-         <column autoUpdated="false" digits="0" id="6" name="cat_id" nullable="true" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="cat_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_filters2_rules_cat_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_feed_categories"/>
          </column>
-         <column autoUpdated="false" digits="0" id="7" name="match_on" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="8" name="cat_filter" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="match_on" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="8" name="cat_filter" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_filters2_rules_pkey" unique="true">
             <column ascending="true" name="id"/>
          </index>
       </table>
       <table name="ttrss_labels2" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_labels2_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_labels2_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
             <child column="label_id" foreignKey="ttrss_user_labels2_label_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_user_labels2"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_labels2_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="fg_color" nullable="false" remarks="" size="15" type="varchar"/>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="bg_color" nullable="false" remarks="" size="15" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="4" name="caption" nullable="false" remarks="" size="250" type="varchar"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="2" name="fg_color" nullable="false" remarks="" size="15" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="3" name="bg_color" nullable="false" remarks="" size="15" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="caption" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_labels2_pkey" unique="true">
             <column ascending="true" name="id"/>
          </index>
       </table>
       <table name="ttrss_linked_feeds" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="feed_url" nullable="false" remarks="" size="2147483647" type="text">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="feed_url" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
             <parent column="feed_url" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="ttrss_feedbrowser_cache"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="site_url" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="2" name="title" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="6" id="3" name="created" nullable="false" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="6" id="4" name="updated" nullable="false" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="0" id="5" name="instance_id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="site_url" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="title" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="3" name="created" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="updated" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="instance_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_linked_feeds_instance_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_linked_instances"/>
          </column>
-         <column autoUpdated="false" digits="0" id="6" name="subscribers" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="subscribers" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
       </table>
       <table name="ttrss_linked_instances" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_linked_instances_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_linked_instances_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
             <child column="instance_id" foreignKey="ttrss_linked_feeds_instance_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_linked_feeds"/>
          </column>
-         <column autoUpdated="false" digits="6" id="1" name="last_connected" nullable="false" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="0" id="2" name="last_status_in" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="3" name="last_status_out" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="4" name="access_key" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="5" name="access_url" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="1" name="last_connected" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="last_status_in" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="last_status_out" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="access_key" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="access_url" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_linked_instances_pkey" unique="true">
             <column ascending="true" name="id"/>
@@ -391,61 +410,61 @@
          </index>
       </table>
       <table name="ttrss_plugin_storage" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_plugin_storage_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
-         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="100" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_plugin_storage_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="100" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_plugin_storage_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
-         <column autoUpdated="false" digits="0" id="3" name="content" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="content" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_plugin_storage_pkey" unique="true">
             <column ascending="true" name="id"/>
          </index>
       </table>
       <table name="ttrss_prefs" numRows="53" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="pref_name" nullable="false" remarks="" size="250" type="varchar">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="pref_name" nullable="false" remarks="" size="250" type="varchar" typeCode="12">
             <child column="pref_name" foreignKey="ttrss_user_prefs_pref_name_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_user_prefs"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="type_id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="type_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_prefs_type_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_prefs_types"/>
          </column>
-         <column autoUpdated="false" defaultValue="1" digits="0" id="2" name="section_id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="1" digits="0" id="2" name="section_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_prefs_section_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_prefs_sections"/>
          </column>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="access_level" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="4" name="def_value" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="3" name="access_level" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="def_value" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
          <primaryKey column="pref_name" sequenceNumberInPK="1"/>
          <index name="ttrss_prefs_pkey" unique="true">
             <column ascending="true" name="pref_name"/>
          </index>
       </table>
       <table name="ttrss_prefs_sections" numRows="4" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <child column="section_id" foreignKey="ttrss_prefs_section_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_prefs"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="order_id" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="0" id="2" name="section_name" nullable="false" remarks="" size="100" type="varchar"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="order_id" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="section_name" nullable="false" remarks="" size="100" type="varchar" typeCode="12"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_prefs_sections_pkey" unique="true">
             <column ascending="true" name="id"/>
          </index>
       </table>
       <table name="ttrss_prefs_types" numRows="3" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <child column="type_id" foreignKey="ttrss_prefs_type_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_prefs"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="type_name" nullable="false" remarks="" size="100" type="varchar"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="type_name" nullable="false" remarks="" size="100" type="varchar" typeCode="12"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_prefs_types_pkey" unique="true">
             <column ascending="true" name="id"/>
          </index>
       </table>
-      <table name="ttrss_sessions" numRows="3" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="250" type="varchar">
+      <table name="ttrss_sessions" numRows="4" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="250" type="varchar" typeCode="12">
             <child column="feed_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="ttrss_access_keys"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="data" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="2" name="expire" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="data" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="expire" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_sessions_pkey" unique="true">
             <column ascending="true" name="id"/>
@@ -455,11 +474,11 @@
          </index>
       </table>
       <table name="ttrss_settings_profiles" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_settings_profiles_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_settings_profiles_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
             <child column="profile" foreignKey="ttrss_user_prefs_profile_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_user_prefs"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="title" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="title" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_settings_profiles_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
          <primaryKey column="id" sequenceNumberInPK="1"/>
@@ -467,13 +486,13 @@
             <column ascending="true" name="id"/>
          </index>
       </table>
-      <table name="ttrss_tags" numRows="7367" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_tags_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
-         <column autoUpdated="false" digits="0" id="1" name="tag_name" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+      <table name="ttrss_tags" numRows="7891" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_tags_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="tag_name" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_tags_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
-         <column autoUpdated="false" digits="0" id="3" name="post_int_id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="post_int_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="int_id" foreignKey="ttrss_tags_post_int_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_user_entries"/>
          </column>
          <primaryKey column="id" sequenceNumberInPK="1"/>
@@ -487,33 +506,33 @@
             <column ascending="true" name="post_int_id"/>
          </index>
       </table>
-      <table name="ttrss_user_entries" numRows="4632" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_user_entries_int_id_seq'::regclass)" digits="0" id="0" name="int_id" nullable="false" remarks="" size="10" type="serial">
+      <table name="ttrss_user_entries" numRows="4839" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_user_entries_int_id_seq'::regclass)" digits="0" id="0" name="int_id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
             <child column="post_int_id" foreignKey="ttrss_tags_post_int_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_tags"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="ref_id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="ref_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_user_entries_ref_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_entries"/>
          </column>
-         <column autoUpdated="false" digits="0" id="2" name="uuid" nullable="false" remarks="" size="200" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="3" name="feed_id" nullable="true" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="uuid" nullable="false" remarks="" size="200" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="feed_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_user_entries_feed_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_feeds"/>
          </column>
-         <column autoUpdated="false" digits="0" id="4" name="orig_feed_id" nullable="true" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="orig_feed_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_user_entries_orig_feed_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="ttrss_archived_feeds"/>
          </column>
-         <column autoUpdated="false" digits="0" id="5" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_user_entries_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="6" name="marked" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="7" name="published" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" digits="0" id="8" name="tag_cache" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="0" id="9" name="label_cache" nullable="false" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" digits="6" id="10" name="last_read" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="11" name="score" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" digits="6" id="12" name="last_marked" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="6" id="13" name="last_published" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" digits="0" id="14" name="note" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" defaultValue="true" digits="0" id="15" name="unread" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="6" name="marked" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="7" name="published" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="tag_cache" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="label_cache" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="10" name="last_read" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="11" name="score" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="12" name="last_marked" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="13" name="last_published" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="note" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="true" digits="0" id="15" name="unread" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
          <primaryKey column="int_id" sequenceNumberInPK="1"/>
          <index name="ttrss_user_entries_pkey" unique="true">
             <column ascending="true" name="int_id"/>
@@ -532,24 +551,24 @@
          </index>
       </table>
       <table name="ttrss_user_labels2" numRows="0" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="label_id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="label_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_user_labels2_label_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_labels2"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="article_id" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="article_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_user_labels2_article_id_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_entries"/>
          </column>
       </table>
       <table name="ttrss_user_prefs" numRows="53" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="owner_uid" nullable="false" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="owner_uid" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_user_prefs_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_users"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="pref_name" nullable="false" remarks="" size="250" type="varchar">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="pref_name" nullable="false" remarks="" size="250" type="varchar" typeCode="12">
             <parent column="pref_name" foreignKey="ttrss_user_prefs_pref_name_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_prefs"/>
          </column>
-         <column autoUpdated="false" digits="0" id="2" name="profile" nullable="true" remarks="" size="10" type="int4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="profile" nullable="true" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="ttrss_user_prefs_profile_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_settings_profiles"/>
          </column>
-         <column autoUpdated="false" digits="0" id="3" name="value" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="value" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
          <index name="ttrss_user_prefs_owner_uid_index" unique="false">
             <column ascending="true" name="owner_uid"/>
          </index>
@@ -558,7 +577,7 @@
          </index>
       </table>
       <table name="ttrss_users" numRows="1" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('ttrss_users_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+         <column autoUpdated="true" defaultValue="nextval('ttrss_users_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
             <child column="owner_uid" foreignKey="ttrss_access_keys_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_access_keys"/>
             <child column="owner_uid" foreignKey="ttrss_archived_feeds_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_archived_feeds"/>
             <child column="owner_uid" foreignKey="ttrss_cat_counters_cache_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_cat_counters_cache"/>
@@ -575,19 +594,19 @@
             <child column="owner_uid" foreignKey="ttrss_user_entries_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_user_entries"/>
             <child column="owner_uid" foreignKey="ttrss_user_prefs_owner_uid_fkey" implied="false" onDeleteCascade="true" schema="public" table="ttrss_user_prefs"/>
          </column>
-         <column autoUpdated="false" digits="0" id="1" name="login" nullable="false" remarks="" size="120" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="2" name="pwd_hash" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" digits="6" id="3" name="last_login" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="access_level" nullable="false" remarks="" size="10" type="int4"/>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="5" name="email" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="6" name="full_name" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="7" name="email_digest" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" digits="6" id="8" name="last_digest_sent" nullable="true" remarks="" size="29" type="timestamp"/>
-         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="9" name="salt" nullable="false" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" digits="0" id="10" name="twitter_oauth" nullable="true" remarks="" size="2147483647" type="text"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="11" name="otp_enabled" nullable="false" remarks="" size="1" type="bool"/>
-         <column autoUpdated="false" defaultValue="NULL::character varying" digits="0" id="12" name="resetpass_token" nullable="true" remarks="" size="250" type="varchar"/>
-         <column autoUpdated="false" digits="6" id="13" name="created" nullable="true" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="login" nullable="false" remarks="" size="120" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="pwd_hash" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="3" name="last_login" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="0" digits="0" id="4" name="access_level" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="5" name="email" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="6" name="full_name" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="7" name="email_digest" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="8" name="last_digest_sent" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="''::character varying" digits="0" id="9" name="salt" nullable="false" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="twitter_oauth" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="11" name="otp_enabled" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="NULL::character varying" digits="0" id="12" name="resetpass_token" nullable="true" remarks="" size="250" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="13" name="created" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="ttrss_users_pkey" unique="true">
             <column ascending="true" name="id"/>
@@ -597,7 +616,101 @@
          </index>
       </table>
       <table name="ttrss_version" numRows="1" remarks="" schema="public" type="TABLE">
-         <column autoUpdated="false" digits="0" id="0" name="schema_version" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="schema_version" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
       </table>
    </tables>
+   <routines>
+      <routine dataAccess="MODIFIES" deterministic="true" name="armor" returnType="text" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pg_armor]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="crypt" returnType="text" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pg_crypt]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="dearmor" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pg_dearmor]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="decrypt" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pg_decrypt]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="decrypt_iv" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pg_decrypt_iv]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="digest" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pg_digest]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="encrypt" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pg_encrypt]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="encrypt_iv" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pg_encrypt_iv]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="gen_random_bytes" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pg_random_bytes]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="gen_random_uuid" returnType="uuid" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pg_random_uuid]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="gen_salt" returnType="text" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pg_gen_salt]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="hmac" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pg_hmac]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="pgp_armor_headers" returnType="SETOF record" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pgp_armor_headers]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="pgp_key_id" returnType="text" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pgp_key_id_w]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="pgp_pub_decrypt" returnType="text" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pgp_pub_decrypt_text]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="pgp_pub_decrypt_bytea" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pgp_pub_decrypt_bytea]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="pgp_pub_encrypt" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pgp_pub_encrypt_text]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="pgp_pub_encrypt_bytea" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pgp_pub_encrypt_bytea]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="pgp_sym_decrypt" returnType="text" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pgp_sym_decrypt_text]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="true" name="pgp_sym_decrypt_bytea" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pgp_sym_decrypt_bytea]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="pgp_sym_encrypt" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pgp_sym_encrypt_text]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="pgp_sym_encrypt_bytea" returnType="bytea" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="C"><![CDATA[pgp_sym_encrypt_bytea]]></definition>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="substring_for_date" returnType="text" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="SQL"><![CDATA[SELECT SUBSTRING(CAST($1 AS text), $2, $3)]]></definition>
+      </routine>
+   </routines>
 </database>
